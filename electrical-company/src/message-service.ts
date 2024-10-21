@@ -74,13 +74,13 @@ export function sendMessage(contact: Customer, accountNumberLast4: string) {
 
         // An SMS message may be sent to any phone number from an email via the carrier's gateway email address
         if (contact.mobileCarrier === 'at&t') {
-            emailPayload.to.push(contact.email + '@text.att.net');
+            emailPayload.to.push(contact.mobile + '@text.att.net');
         } else if (contact.mobileCarrier === 'tmobile') {
             emailPayload.to.push(contact.mobile + '@tmomail.net');
         } else {
             // We don't know what carrier is used, so we need send the message to all carriers.
             // For purposes of this exercise, assume these are the only three carriers (AT&T, T-Mobile, & Verizon)
-            emailPayload.to.push(contact.mobile + 'text.att.net');
+            emailPayload.to.push(contact.mobile + '@text.att.net');
             emailPayload.to.push(contact.mobile + '@tmomail.net');
             emailPayload.to.push(contact.mobile + '@vtext.com');
         }
