@@ -11,16 +11,15 @@ export class BaseRepository<T extends object> {
         return path.join(process.cwd(), DATAFILES_DIR, this.fileName);
     }
 
-    async initialize() {
-        if (this.data) {
-            return;
+    private async fetchEntries() {
+        if (!this.data) {
+            const content = await fs.readFile(this.filePath);
+            this.data = JSON.parse(content.toString()) as T[];
         }
-        const data = await fs.readFile(this.filePath);
-        this.data = JSON.parse(data.toString()) as T[];
+        return this.data;
     }
 
     async findAll() {
-        await this.initialize();
-        return this.data;
+        return this.fetchEntries();
     }
 }
