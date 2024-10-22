@@ -22,4 +22,9 @@ export class BaseRepository<T extends object> {
     async findAll() {
         return this.fetchEntries();
     }
+
+    async findOne(predicate: (T) => boolean): Promise<T | null> {
+        const entries = await this.fetchEntries();
+        return entries.find(predicate) || null;
+    }
 }
