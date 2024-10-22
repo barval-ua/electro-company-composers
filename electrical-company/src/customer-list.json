@@ -2,50 +2,64 @@
     {
         "id": 2002,
         "name": "Nikola Tesla",
-        "mobile": "791-121-0094",
-        "mobileCarrier": "at&t",
-        "paymentMethods": {
-            "defaultPaymentMethod": "card",
-            "card": {
+        "phone": {
+            "mobileCarrier": "at&t",
+            "number": "791-121-0094"
+        },
+        "paymentMethods": [
+            {
+                "id": "fedcba00",
+                "type": "card",
                 "brand": "Mastercard",
-                "last4": 4242
+                "last4digits": "4242"
             },
-            "usBankAccount": {
+            {
+                "id": "fedcba01",
+                "type": "usBankAccount",
                 "bankName": "Citigroup",
                 "accountType": "checking",
-                "accountNumberLastFourDigits": "2933"
+                "last4digits": "2933"
             }
-        }
+        ],
+        "defaultPaymentMethod": "fedcba00"
     },
     {
         "id": 2001,
         "name": "Thomas Edison",
         "email": "thomas.edison@gmail.com",
-        "mobile": "800-432-1753",
-        "paymentMethods": {
-            "defaultPaymentMethod": "usBankAccount",
-            "usBankAccount": {
+        "phone": {
+            "number": "800-432-1753"
+        },
+        "paymentMethods": [
+            {
+                "id": "fedcba02",
+                "type": "usBankAccount",
                 "bankName": "JP Morgan Chase",
                 "accountType": "checking",
-                "accountNumberLastFourDigits": "8993"
+                "last4digits": "8993"
             }
-        }
+        ],
+        "defaultPaymentMethod": "fedcba02"
     },
     {
         "id": 2003,
         "name": "Guglielmo Marconi",
         "email": "guglielmo.marconi@gmail.com",
-        "paymentMethods": {
-            "defaultPaymentMethod": "eu_pay_by_bank",
-            "eu_pay_by_bank": {
-                "organization_name": "HSBC",
-                "country_code": "GB",
-                "iban_last_4": "1219"
+        "paymentMethods": [
+            {
+                "id": "fedcba03",
+                "type": "euBankAccount",
+                "bankName": "HSBC",
+                "countryCode": "GB",
+                "last4digits": "1219"
             },
-            "card": {
+            {
+                "id": "fedcba04",
+                "type": "card",
                 "brand": "VISA",
-                "last4": 5749
+                "last4digits": "5749"
             }
-        }
+        ],
+        "defaultPaymentMethod":  "fedcba03"
     }
 ]
