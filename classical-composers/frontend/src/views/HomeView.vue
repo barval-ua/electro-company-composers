@@ -1,5 +1,5 @@
 <script>
-import composers from '../assets/composers.json';
+import httpApi from '../api';
 
 const pageSize = 20;
 
@@ -7,7 +7,7 @@ export default {
 	name: 'HomeView',
 	data() {
 		return {
-			composers,
+			composers: [],
 			activeComposerIndex: 0,
 			pageIndex: 0,
 		}
@@ -18,6 +18,9 @@ export default {
 		composersForPage() {
 			return this.composers.slice(this.pageIndex * pageSize, this.pageIndex * pageSize + pageSize);
 		}
+	},
+	async created() {
+		this.composers = await httpApi.getComposers();
 	}
 };
 </script>
