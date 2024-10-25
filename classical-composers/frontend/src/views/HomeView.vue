@@ -1,10 +1,13 @@
-<script>
+<script lang="ts">
+import { Component } from 'vue';
 import httpApi from '../api';
+import ContactDetailsView from './ContactDetailsView.vue';
 
 const pageSize = 20;
 
 export default {
 	name: 'HomeView',
+	components: { ContactDetailsView },
 	data() {
 		return {
 			composers: [],
@@ -22,7 +25,7 @@ export default {
 	async created() {
 		this.composers = await httpApi.getComposers();
 	}
-};
+} as Component;
 </script>
 
 <template>
@@ -37,22 +40,7 @@ export default {
 
 					<div><span class="item-label">Born</span>: {{ activeComposer.dateOfBirth }}</div>
 				</div>
-				<div class="contact-details">
-					<h4>Contact Info</h4>
-
-					<div>
-						<div><span class="item-label">Phone Number</span>: (XXX) XXX-XXXX</div>
-						<div><span class="item-label">Email</span>: some-email@gmail.com</div>
-						
-						<h5 class="mt-3">Address</h5>
-						
-						<div>
-							123 Main Street<br />
-							City, State Code, Zip/Postal Code
-						</div>
-						
-					</div>
-				</div>
+				<contact-details-view :contactId="activeComposer.id"></contact-details-view>
 			</div>
 		</div>
 		

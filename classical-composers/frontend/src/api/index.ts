@@ -1,14 +1,22 @@
 import { HttpError } from "./HttpError";
-import type { Composer } from "./types";
+import type { Composer, Contact } from "./types";
 
 enum Endpoint {
-    COMPOSERS = '/composers'
+    COMPOSERS = '/composers',
+    CONTACT_DETAILS = '/contacts/:id'
 }
 
 class HttpApi {
     constructor(private readonly apiUrl: string) {}
 
-    private async get<T>(path: Endpoint): Promise<T> {
+    private async get<T>(endpoint: Endpoint, pathParameters?: Record<string, string|number>): Promise<T> {
+        let path = endpoint as string;
+        if (pathParameters) {
+            for (const [name, value] of Object.entries(pathParameters)) {
+                path = path.replace(`:${name}`, value.toString());
+            }
+        }
+
         const response = await fetch(this.apiUrl + path, {
             method: 'GET',
             headers: {
@@ -25,6 +33,10 @@ class HttpApi {
 
     async getComposers() {
         return this.get<Composer[]>(Endpoint.COMPOSERS);
+    }
+
+    async getContactDetails(id: number) {
+        return this.get<Contact>(Endpoint.CONTACT_DETAILS, { id });
     }
 }
 
