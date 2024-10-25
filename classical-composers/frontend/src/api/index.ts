@@ -1,8 +1,9 @@
 import { HttpError } from "./HttpError";
-import type { Composer } from "./types";
+import type { Composer, Contact } from "./types";
 
 enum Endpoint {
-    COMPOSERS = '/composers'
+    COMPOSERS = '/composers',
+    CONTACT_DETAILS = '/contacts/:id'
 }
 
 class HttpApi {
@@ -32,6 +33,10 @@ class HttpApi {
 
     async getComposers() {
         return this.get<Composer[]>(Endpoint.COMPOSERS);
+    }
+
+    async getContactDetails(id: number) {
+        return this.get<Contact>(Endpoint.CONTACT_DETAILS, { id });
     }
 }
 
