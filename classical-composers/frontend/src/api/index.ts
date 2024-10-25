@@ -8,7 +8,14 @@ enum Endpoint {
 class HttpApi {
     constructor(private readonly apiUrl: string) {}
 
-    private async get<T>(path: Endpoint): Promise<T> {
+    private async get<T>(endpoint: Endpoint, pathParameters?: Record<string, string|number>): Promise<T> {
+        let path = endpoint as string;
+        if (pathParameters) {
+            for (const [name, value] of Object.entries(pathParameters)) {
+                path = path.replace(`:${name}`, value.toString());
+            }
+        }
+
         const response = await fetch(this.apiUrl + path, {
             method: 'GET',
             headers: {
