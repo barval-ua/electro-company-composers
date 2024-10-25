@@ -1,4 +1,5 @@
 import { HttpError } from "./HttpError";
+import type { Composer } from "./types";
 
 enum Endpoint {
     COMPOSERS = '/composers'
@@ -7,7 +8,7 @@ enum Endpoint {
 class HttpApi {
     constructor(private readonly apiUrl: string) {}
 
-    private async get(path: Endpoint) {
+    private async get<T>(path: Endpoint): Promise<T> {
         const response = await fetch(this.apiUrl + path, {
             method: 'GET',
             headers: {
@@ -23,7 +24,7 @@ class HttpApi {
     }
 
     async getComposers() {
-        return this.get(Endpoint.COMPOSERS);
+        return this.get<Composer[]>(Endpoint.COMPOSERS);
     }
 }
 
